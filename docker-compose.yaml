@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  web:
+    build:
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: nginx
+    ports:
+      - 8081:80
+      - 443:433
+    networks:
+      - common-network
+  #php
+  app:
+    build:
+      dockerfile: ./docker/php/Dockerfile
+    container_name: php8
+    volumes:
+      - ./:/var/www/html
+
+
+#docker network
+networks:
+  common-network:
+    driver: bridge
